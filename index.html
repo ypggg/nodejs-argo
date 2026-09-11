@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,562 +7,708 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
     <style>
+        /* ============ Theme Variables ============ */
+        [data-theme="dark"] {
+            --bg: #070b14;
+            --bg-alt: #0b1120;
+            --bg-section: #0a0f1c;
+            --card-bg: rgba(255, 255, 255, 0.04);
+            --card-border: rgba(255, 255, 255, 0.08);
+            --text: #e6ecf5;
+            --text-muted: #93a1b8;
+            --accent: #4f8cff;
+            --accent2: #22d3ee;
+            --nav-bg: rgba(7, 11, 20, 0.85);
+            --hero-glow: rgba(79, 140, 255, 0.15);
+            --shadow: rgba(0, 0, 0, 0.5);
+            --footer-bg: #04070d;
+            --grid-line: rgba(255, 255, 255, 0.03);
+        }
+
+        [data-theme="light"] {
+            --bg: #f6f9fe;
+            --bg-alt: #edf2fb;
+            --bg-section: #ffffff;
+            --card-bg: #ffffff;
+            --card-border: rgba(20, 40, 80, 0.08);
+            --text: #1c2536;
+            --text-muted: #5a6a82;
+            --accent: #4361ee;
+            --accent2: #0891b2;
+            --nav-bg: rgba(255, 255, 255, 0.85);
+            --hero-glow: rgba(67, 97, 238, 0.10);
+            --shadow: rgba(30, 50, 90, 0.12);
+            --footer-bg: #131a26;
+            --grid-line: rgba(20, 40, 80, 0.04);
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease;
         }
-        
+
         body {
             font-family: 'Roboto', sans-serif;
             line-height: 1.6;
-            color: #333;
-            background-color: #f9fbfd;
+            color: var(--text);
+            background-color: var(--bg);
         }
-        
+
         h1, h2, h3, h4 {
             font-family: 'Poppins', sans-serif;
             font-weight: 600;
             line-height: 1.3;
         }
-        
+
         .container {
             width: 100%;
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 20px;
         }
-        
-        /* Header & Navigation */
+
+        /* ============ Header & Navigation ============ */
         header {
-            background-color: #fff;
-            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+            background-color: var(--nav-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--card-border);
             position: fixed;
             width: 100%;
             z-index: 1000;
         }
-        
+
         nav {
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: 20px 0;
         }
-        
+
         .logo {
             display: flex;
             align-items: center;
         }
-        
+
         .logo-icon {
-            color: #4361ee;
+            color: var(--accent2);
             font-size: 28px;
             margin-right: 10px;
+            filter: drop-shadow(0 0 8px rgba(34, 211, 238, 0.5));
         }
-        
+
         .logo-text {
             font-family: 'Poppins', sans-serif;
             font-size: 24px;
             font-weight: 700;
-            color: #333;
+            color: var(--text);
         }
-        
+
         .logo-text span {
-            color: #4361ee;
+            background: linear-gradient(90deg, var(--accent), var(--accent2));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
-        
+
         .nav-links {
             display: flex;
             list-style: none;
         }
-        
+
         .nav-links li {
             margin-left: 30px;
         }
-        
+
         .nav-links a {
             text-decoration: none;
-            color: #555;
+            color: var(--text-muted);
             font-weight: 500;
             transition: color 0.3s;
         }
-        
+
         .nav-links a:hover {
-            color: #4361ee;
+            color: var(--accent2);
         }
-        
+
         .cta-button {
-            background-color: #4361ee;
-            color: white;
+            background: linear-gradient(90deg, var(--accent), var(--accent2));
+            color: #fff;
             border: none;
             padding: 12px 28px;
             border-radius: 6px;
             font-weight: 600;
             cursor: pointer;
-            transition: background-color 0.3s, transform 0.2s;
+            box-shadow: 0 4px 20px var(--hero-glow);
+            transition: transform 0.2s, box-shadow 0.3s;
         }
-        
+
         .cta-button:hover {
-            background-color: #3a56d4;
             transform: translateY(-2px);
+            box-shadow: 0 6px 28px var(--hero-glow), 0 0 20px rgba(34, 211, 238, 0.3);
         }
-        
+
+        .theme-toggle {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            color: var(--text);
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            font-size: 16px;
+            cursor: pointer;
+            margin-left: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+
+        .theme-toggle:hover {
+            border-color: var(--accent);
+            color: var(--accent2);
+            box-shadow: 0 0 15px var(--hero-glow);
+        }
+
         .mobile-menu-btn {
             display: none;
             background: none;
             border: none;
             font-size: 24px;
-            color: #333;
+            color: var(--text);
             cursor: pointer;
         }
-        
-        /* Hero Section */
+
+        /* ============ Hero Section ============ */
         .hero {
             padding: 150px 0 100px;
-            background: linear-gradient(135deg, #f0f4ff 0%, #f9fbfd 100%);
+            background:
+                radial-gradient(ellipse 600px 400px at 20% 20%, var(--hero-glow), transparent),
+                radial-gradient(ellipse 500px 350px at 85% 70%, rgba(34, 211, 238, 0.08), transparent),
+                linear-gradient(var(--grid-line) 1px, transparent 1px),
+                linear-gradient(90deg, var(--grid-line) 1px, transparent 1px),
+                var(--bg-alt);
+            background-size: auto, auto, 40px 40px, 40px 40px, auto;
         }
-        
+
         .hero-content {
             display: flex;
             align-items: center;
             justify-content: space-between;
         }
-        
+
         .hero-text {
             flex: 1;
             padding-right: 40px;
         }
-        
+
         .hero-text h1 {
             font-size: 48px;
             margin-bottom: 20px;
-            color: #222;
+            color: var(--text);
         }
-        
+
         .hero-text h1 span {
-            color: #4361ee;
+            background: linear-gradient(90deg, var(--accent), var(--accent2));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 20px var(--hero-glow));
         }
-        
+
         .hero-text p {
             font-size: 18px;
-            color: #666;
+            color: var(--text-muted);
             margin-bottom: 30px;
             max-width: 600px;
         }
-        
+
         .hero-buttons {
             display: flex;
             gap: 15px;
         }
-        
+
         .secondary-button {
-            background-color: white;
-            color: #4361ee;
-            border: 2px solid #4361ee;
+            background-color: transparent;
+            color: var(--accent2);
+            border: 2px solid var(--accent2);
             padding: 12px 28px;
             border-radius: 6px;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s;
         }
-        
+
         .secondary-button:hover {
-            background-color: #f0f4ff;
+            background-color: rgba(34, 211, 238, 0.1);
+            box-shadow: 0 0 20px rgba(34, 211, 238, 0.25);
         }
-        
+
         .hero-image {
             flex: 1;
             text-align: center;
         }
-        
+
         .hero-image img {
             max-width: 100%;
             border-radius: 10px;
-            box-shadow: 0 20px 40px rgba(67, 97, 238, 0.15);
+            border: 1px solid var(--card-border);
+            box-shadow: 0 20px 60px var(--shadow), 0 0 40px var(--hero-glow);
         }
-        
-        /* Features Section */
+
+        /* ============ Section Titles ============ */
         .section-title {
             text-align: center;
             margin-bottom: 60px;
         }
-        
+
         .section-title h2 {
             font-size: 36px;
-            color: #222;
+            color: var(--text);
             margin-bottom: 15px;
         }
-        
+
         .section-title p {
-            color: #666;
+            color: var(--text-muted);
             max-width: 700px;
             margin: 0 auto;
         }
-        
+
+        /* ============ Features ============ */
         .features {
             padding: 100px 0;
-            background-color: white;
+            background-color: var(--bg-section);
         }
-        
+
         .features-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 40px;
         }
-        
+
         .feature-card {
-            background: #fff;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
             padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
-            transition: transform 0.3s, box-shadow 0.3s;
+            border-radius: 12px;
+            backdrop-filter: blur(8px);
+            transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
         }
-        
+
         .feature-card:hover {
             transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            border-color: var(--accent);
+            box-shadow: 0 15px 40px var(--shadow), 0 0 30px var(--hero-glow);
         }
-        
+
         .feature-icon {
-            background-color: #eef2ff;
-            color: #4361ee;
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            color: #fff;
             width: 70px;
             height: 70px;
-            border-radius: 50%;
+            border-radius: 16px;
             display: flex;
             align-items: center;
             justify-content: center;
             margin-bottom: 20px;
             font-size: 28px;
+            box-shadow: 0 8px 20px var(--hero-glow);
         }
-        
+
         .feature-card h3 {
             font-size: 22px;
             margin-bottom: 15px;
+            color: var(--text);
         }
-        
+
         .feature-card p {
-            color: #666;
+            color: var(--text-muted);
         }
-        
-        /* Benefits Section */
+
+        /* ============ Benefits ============ */
         .benefits {
             padding: 100px 0;
-            background-color: #f0f4ff;
+            background-color: var(--bg-alt);
         }
-        
+
         .benefits-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 30px;
         }
-        
+
         .benefit-item {
             text-align: center;
             padding: 30px 20px;
+            border-radius: 12px;
+            border: 1px solid transparent;
+            transition: all 0.3s;
         }
-        
+
+        .benefit-item:hover {
+            border-color: var(--card-border);
+            background: var(--card-bg);
+            box-shadow: 0 10px 30px var(--shadow);
+        }
+
         .benefit-icon {
-            color: #4361ee;
+            color: var(--accent2);
             font-size: 40px;
             margin-bottom: 20px;
+            filter: drop-shadow(0 0 12px rgba(34, 211, 238, 0.4));
         }
-        
+
         .benefit-item h3 {
             font-size: 22px;
             margin-bottom: 15px;
+            color: var(--text);
         }
-        
+
         .benefit-item p {
-            color: #666;
+            color: var(--text-muted);
         }
-        
-        /* Testimonials */
+
+        /* ============ Testimonials ============ */
         .testimonials {
             padding: 100px 0;
-            background-color: white;
+            background-color: var(--bg-section);
         }
-        
+
         .testimonial-slider {
             max-width: 800px;
             margin: 0 auto;
             position: relative;
         }
-        
+
         .testimonial {
-            background: #f9fbfd;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
             padding: 40px;
-            border-radius: 10px;
+            border-radius: 12px;
             text-align: center;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 10px 30px var(--shadow);
         }
-        
+
         .testimonial-text {
             font-size: 18px;
             font-style: italic;
             margin-bottom: 30px;
-            color: #555;
+            color: var(--text-muted);
         }
-        
+
         .testimonial-author {
             display: flex;
             align-items: center;
             justify-content: center;
         }
-        
+
         .author-avatar {
             width: 60px;
             height: 60px;
             border-radius: 50%;
-            background-color: #ddd;
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
             margin-right: 15px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: bold;
-            color: #4361ee;
+            color: #fff;
             font-size: 24px;
+            box-shadow: 0 0 20px var(--hero-glow);
         }
-        
+
         .author-info h4 {
             font-size: 18px;
             margin-bottom: 5px;
+            color: var(--text);
         }
-        
+
         .author-info p {
-            color: #777;
+            color: var(--text-muted);
             font-size: 14px;
         }
-        
-        /* Pricing Section */
+
+        .slider-controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .slider-btn {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            color: var(--text-muted);
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+
+        .slider-btn:hover {
+            color: var(--accent2);
+            border-color: var(--accent);
+            box-shadow: 0 0 15px var(--hero-glow);
+        }
+
+        /* ============ Pricing ============ */
         .pricing {
             padding: 100px 0;
-            background-color: #f9fbfd;
+            background-color: var(--bg-alt);
         }
-        
+
         .pricing-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 30px;
         }
-        
+
         .pricing-card {
-            background: white;
-            border-radius: 10px;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
             padding: 40px 30px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
             text-align: center;
-            transition: transform 0.3s;
+            transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
         }
-        
+
         .pricing-card.featured {
-            border-top: 5px solid #4361ee;
+            border: 1px solid var(--accent);
             transform: scale(1.05);
             position: relative;
+            box-shadow: 0 0 40px var(--hero-glow);
         }
-        
+
         .featured-badge {
             position: absolute;
             top: -12px;
             left: 50%;
             transform: translateX(-50%);
-            background-color: #4361ee;
-            color: white;
+            background: linear-gradient(90deg, var(--accent), var(--accent2));
+            color: #fff;
             padding: 5px 20px;
             border-radius: 20px;
             font-size: 14px;
             font-weight: 600;
+            box-shadow: 0 4px 15px var(--hero-glow);
         }
-        
+
         .pricing-card:hover {
             transform: translateY(-10px);
+            border-color: var(--accent);
         }
-        
+
         .pricing-card.featured:hover {
             transform: scale(1.05) translateY(-10px);
         }
-        
+
         .plan-name {
             font-size: 24px;
             margin-bottom: 15px;
-            color: #333;
+            color: var(--text);
         }
-        
+
         .plan-price {
             font-size: 48px;
             font-weight: 700;
-            color: #4361ee;
+            background: linear-gradient(90deg, var(--accent), var(--accent2));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
             margin-bottom: 20px;
         }
-        
+
         .plan-price span {
             font-size: 16px;
-            color: #777;
+            -webkit-text-fill-color: var(--text-muted);
+            color: var(--text-muted);
         }
-        
+
         .plan-features {
             list-style: none;
             margin-bottom: 30px;
         }
-        
+
         .plan-features li {
             padding: 10px 0;
-            border-bottom: 1px solid #eee;
-            color: #555;
+            border-bottom: 1px solid var(--card-border);
+            color: var(--text-muted);
         }
-        
+
         .plan-features li:last-child {
             border-bottom: none;
         }
-        
-        /* CTA Section */
+
+        /* ============ CTA Section ============ */
         .cta-section {
             padding: 100px 0;
-            background: linear-gradient(135deg, #4361ee 0%, #3a56d4 100%);
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 100%);
             text-align: center;
-            color: white;
+            color: #fff;
+            position: relative;
+            overflow: hidden;
         }
-        
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -10%;
+            width: 400px;
+            height: 400px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            filter: blur(80px);
+        }
+
         .cta-section h2 {
             font-size: 36px;
             margin-bottom: 20px;
+            position: relative;
         }
-        
+
         .cta-section p {
             font-size: 18px;
             max-width: 700px;
             margin: 0 auto 30px;
             opacity: 0.9;
+            position: relative;
         }
-        
+
         .cta-section .cta-button {
-            background-color: white;
-            color: #4361ee;
+            background-color: #fff;
+            color: var(--accent);
             font-size: 16px;
             padding: 15px 40px;
+            position: relative;
         }
-        
+
         .cta-section .cta-button:hover {
-            background-color: #f0f4ff;
+            box-shadow: 0 6px 30px rgba(0, 0, 0, 0.25);
         }
-        
-        /* Footer */
+
+        /* ============ Footer ============ */
         footer {
-            background-color: #222;
-            color: #ccc;
+            background-color: var(--footer-bg);
+            color: #aaa;
             padding: 70px 0 20px;
         }
-        
+
         .footer-content {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 40px;
             margin-bottom: 50px;
         }
-        
+
         .footer-column h3 {
             font-size: 20px;
-            color: white;
+            color: #fff;
             margin-bottom: 25px;
         }
-        
+
         .footer-links {
             list-style: none;
         }
-        
+
         .footer-links li {
             margin-bottom: 12px;
         }
-        
+
         .footer-links a {
-            color: #aaa;
+            color: #999;
             text-decoration: none;
             transition: color 0.3s;
         }
-        
+
         .footer-links a:hover {
-            color: #4361ee;
+            color: var(--accent2);
         }
-        
+
         .copyright {
             text-align: center;
             padding-top: 20px;
-            border-top: 1px solid #444;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
             font-size: 14px;
-            color: #888;
+            color: #777;
         }
-        
-        /* Responsive Design */
+
+        /* ============ Responsive ============ */
         @media (max-width: 992px) {
             .hero-content {
                 flex-direction: column;
             }
-            
+
             .hero-text {
                 padding-right: 0;
                 margin-bottom: 50px;
                 text-align: center;
             }
-            
+
             .hero-text p {
                 margin: 0 auto 30px;
             }
-            
+
             .pricing-card.featured {
                 transform: none;
             }
-            
+
             .pricing-card.featured:hover {
                 transform: translateY(-10px);
             }
         }
-        
+
         @media (max-width: 768px) {
             .nav-links {
                 display: none;
             }
-            
+
             .mobile-menu-btn {
                 display: block;
             }
-            
+
             .hero-text h1 {
                 font-size: 36px;
             }
-            
+
             .section-title h2 {
                 font-size: 30px;
             }
-            
+
             .hero-buttons {
                 flex-direction: column;
                 align-items: center;
             }
-            
+
             .hero-buttons button {
                 width: 100%;
                 max-width: 300px;
             }
         }
-        
+
         @media (max-width: 576px) {
             .hero {
                 padding: 130px 0 80px;
             }
-            
+
             .features, .benefits, .testimonials, .pricing, .cta-section {
                 padding: 70px 0;
             }
-            
+
             .feature-card, .testimonial {
                 padding: 25px;
             }
-            
+
             .plan-price {
                 font-size: 36px;
             }
         }
     </style>
+<base target="_blank">
 </head>
 <body>
     <!-- Header & Navigation -->
@@ -573,7 +719,7 @@
                     <div class="logo-icon"><i class="fas fa-bezier-curve"></i></div>
                     <div class="logo-text">Code<span>Flow</span></div>
                 </div>
-                
+
                 <ul class="nav-links">
                     <li><a href="#features">Features</a></li>
                     <li><a href="#benefits">Benefits</a></li>
@@ -581,8 +727,13 @@
                     <li><a href="#pricing">Pricing</a></li>
                     <li><a href="#">Resources</a></li>
                 </ul>
-                
-                <button class="cta-button">Start Free Trial</button>
+
+                <div style="display: flex; align-items: center;">
+                    <button class="cta-button">Start Free Trial</button>
+                    <button class="theme-toggle" id="themeToggle" title="Toggle dark/light mode">
+                        <i class="fas fa-sun"></i>
+                    </button>
+                </div>
                 <button class="mobile-menu-btn"><i class="fas fa-bars"></i></button>
             </nav>
         </div>
@@ -597,7 +748,7 @@
                     <p>CodeFlow empowers teams to create enterprise-grade applications with minimal coding. Drag, drop, and connect components to build powerful web and mobile apps in record time.</p>
                     <div class="hero-buttons">
                         <button class="cta-button">Start Building Free</button>
-                        <button class="secondary-button">Watch Demo</button>
+                        <button class="secondary-button" id="demoBtn"><i class="fas fa-play" style="margin-right: 8px;"></i>Watch Demo</button>
                     </div>
                 </div>
                 <div class="hero-image">
@@ -614,7 +765,7 @@
                 <h2>Powerful Features for Rapid Development</h2>
                 <p>CodeFlow provides all the tools you need to build, deploy, and scale applications without writing extensive code.</p>
             </div>
-            
+
             <div class="features-grid">
                 <div class="feature-card">
                     <div class="feature-icon">
@@ -623,7 +774,7 @@
                     <h3>Visual Builder</h3>
                     <p>Drag and drop UI components to design responsive interfaces. Connect data sources with simple point-and-click actions.</p>
                 </div>
-                
+
                 <div class="feature-card">
                     <div class="feature-icon">
                         <i class="fas fa-database"></i>
@@ -631,7 +782,7 @@
                     <h3>Database Integration</h3>
                     <p>Connect to any data source with built-in connectors. Automatically generate CRUD operations without writing SQL.</p>
                 </div>
-                
+
                 <div class="feature-card">
                     <div class="feature-icon">
                         <i class="fas fa-mobile-alt"></i>
@@ -639,7 +790,7 @@
                     <h3>Cross-Platform</h3>
                     <p>Build once, deploy everywhere. Generate applications for web, iOS, and Android from a single visual design.</p>
                 </div>
-                
+
                 <div class="feature-card">
                     <div class="feature-icon">
                         <i class="fas fa-code"></i>
@@ -647,7 +798,7 @@
                     <h3>Extensible with Code</h3>
                     <p>Add custom functionality with JavaScript when needed. Our platform doesn't limit your creativity or complexity.</p>
                 </div>
-                
+
                 <div class="feature-card">
                     <div class="feature-icon">
                         <i class="fas fa-shield-alt"></i>
@@ -655,7 +806,7 @@
                     <h3>Enterprise Security</h3>
                     <p>Built-in authentication, authorization, and data encryption. SOC2 compliant with enterprise-grade security features.</p>
                 </div>
-                
+
                 <div class="feature-card">
                     <div class="feature-icon">
                         <i class="fas fa-rocket"></i>
@@ -674,7 +825,7 @@
                 <h2>Why Choose CodeFlow?</h2>
                 <p>Join thousands of companies accelerating their digital transformation with low-code development.</p>
             </div>
-            
+
             <div class="benefits-grid">
                 <div class="benefit-item">
                     <div class="benefit-icon">
@@ -683,7 +834,7 @@
                     <h3>10x Faster Development</h3>
                     <p>Build applications in days instead of months with visual development tools.</p>
                 </div>
-                
+
                 <div class="benefit-item">
                     <div class="benefit-icon">
                         <i class="fas fa-money-bill-wave"></i>
@@ -691,7 +842,7 @@
                     <h3>Reduce Costs by 70%</h3>
                     <p>Lower development and maintenance costs with fewer resources required.</p>
                 </div>
-                
+
                 <div class="benefit-item">
                     <div class="benefit-icon">
                         <i class="fas fa-users"></i>
@@ -699,7 +850,7 @@
                     <h3>Citizen Developers</h3>
                     <p>Enable business users to build solutions with minimal IT assistance.</p>
                 </div>
-                
+
                 <div class="benefit-item">
                     <div class="benefit-icon">
                         <i class="fas fa-chart-line"></i>
@@ -718,7 +869,7 @@
                 <h2>Trusted by Industry Leaders</h2>
                 <p>See what our customers have to say about their experience with CodeFlow.</p>
             </div>
-            
+
             <div class="testimonial-slider">
                 <div class="testimonial">
                     <div class="testimonial-text">
@@ -732,6 +883,10 @@
                         </div>
                     </div>
                 </div>
+                <div class="slider-controls">
+                    <button class="slider-btn" id="prevBtn"><i class="fas fa-chevron-left"></i></button>
+                    <button class="slider-btn" id="nextBtn"><i class="fas fa-chevron-right"></i></button>
+                </div>
             </div>
         </div>
     </section>
@@ -743,7 +898,7 @@
                 <h2>Simple, Transparent Pricing</h2>
                 <p>Choose the plan that fits your needs. All plans include core features with no hidden fees.</p>
             </div>
-            
+
             <div class="pricing-grid">
                 <div class="pricing-card">
                     <h3 class="plan-name">Starter</h3>
@@ -757,7 +912,7 @@
                     </ul>
                     <button class="secondary-button">Get Started</button>
                 </div>
-                
+
                 <div class="pricing-card featured">
                     <div class="featured-badge">Most Popular</div>
                     <h3 class="plan-name">Professional</h3>
@@ -772,7 +927,7 @@
                     </ul>
                     <button class="cta-button">Try Free for 14 Days</button>
                 </div>
-                
+
                 <div class="pricing-card">
                     <h3 class="plan-name">Enterprise</h3>
                     <div class="plan-price">Custom</div>
@@ -808,9 +963,9 @@
                         <div class="logo-icon"><i class="fas fa-bezier-curve"></i></div>
                         <div class="logo-text">Code<span>Flow</span></div>
                     </div>
-                    <p style="margin-top: 20px; color: #aaa;">The leading visual development platform for building enterprise applications with minimal coding.</p>
+                    <p style="margin-top: 20px; color: #999;">The leading visual development platform for building enterprise applications with minimal coding.</p>
                 </div>
-                
+
                 <div class="footer-column">
                     <h3>Product</h3>
                     <ul class="footer-links">
@@ -821,7 +976,7 @@
                         <li><a href="#">Roadmap</a></li>
                     </ul>
                 </div>
-                
+
                 <div class="footer-column">
                     <h3>Resources</h3>
                     <ul class="footer-links">
@@ -832,7 +987,7 @@
                         <li><a href="#">Support</a></li>
                     </ul>
                 </div>
-                
+
                 <div class="footer-column">
                     <h3>Company</h3>
                     <ul class="footer-links">
@@ -844,20 +999,40 @@
                     </ul>
                 </div>
             </div>
-            
+
             <div class="copyright">
-                <p>&copy; 2023 CodeFlow. All rights reserved.</p>
+                <p>&copy; 2026 CodeFlow. All rights reserved.</p>
             </div>
         </div>
     </footer>
 
     <script>
-        // Mobile menu toggle
+        // ============ Theme Toggle (dark / light) ============
+        const themeToggle = document.getElementById('themeToggle');
+        const root = document.documentElement;
+
+        function applyTheme(theme) {
+            root.setAttribute('data-theme', theme);
+            themeToggle.innerHTML = theme === 'dark'
+                ? '<i class="fas fa-sun"></i>'
+                : '<i class="fas fa-moon"></i>';
+            localStorage.setItem('codeflow-theme', theme);
+        }
+
+        // Restore saved theme, default to dark
+        const savedTheme = localStorage.getItem('codeflow-theme') || 'dark';
+        applyTheme(savedTheme);
+
+        themeToggle.addEventListener('click', function() {
+            const current = root.getAttribute('data-theme');
+            applyTheme(current === 'dark' ? 'light' : 'dark');
+        });
+
+        // ============ Mobile menu toggle ============
         document.querySelector('.mobile-menu-btn').addEventListener('click', function() {
             const navLinks = document.querySelector('.nav-links');
             navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
-            
-            // Adjust for mobile
+
             if (window.innerWidth <= 768) {
                 if (navLinks.style.display === 'flex') {
                     navLinks.style.flexDirection = 'column';
@@ -865,10 +1040,11 @@
                     navLinks.style.top = '80px';
                     navLinks.style.left = '0';
                     navLinks.style.width = '100%';
-                    navLinks.style.backgroundColor = 'white';
+                    navLinks.style.backgroundColor = 'var(--nav-bg)';
+                    navLinks.style.backdropFilter = 'blur(12px)';
                     navLinks.style.padding = '20px';
-                    navLinks.style.boxShadow = '0 10px 20px rgba(0,0,0,0.1)';
-                    
+                    navLinks.style.boxShadow = '0 10px 20px rgba(0,0,0,0.3)';
+
                     const navItems = document.querySelectorAll('.nav-links li');
                     navItems.forEach(item => {
                         item.style.margin = '10px 0';
@@ -876,31 +1052,30 @@
                 }
             }
         });
-        
-        // Smooth scrolling for anchor links
+
+        // ============ Smooth scrolling ============
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
                 e.preventDefault();
-                
+
                 const targetId = this.getAttribute('href');
                 if(targetId === '#') return;
-                
+
                 const targetElement = document.querySelector(targetId);
                 if(targetElement) {
                     window.scrollTo({
                         top: targetElement.offsetTop - 80,
                         behavior: 'smooth'
                     });
-                    
-                    // Close mobile menu if open
+
                     if(window.innerWidth <= 768) {
                         document.querySelector('.nav-links').style.display = 'none';
                     }
                 }
             });
         });
-        
-        // Simple testimonial slider
+
+        // ============ Testimonial slider ============
         const testimonials = [
             {
                 text: "CodeFlow transformed how we deliver solutions to our business units. What used to take 6 months now takes 3 weeks. Our development team can focus on complex problems while business teams build their own solutions.",
@@ -921,44 +1096,75 @@
                 initials: "LW"
             }
         ];
-        
+
         let currentTestimonial = 0;
+        let autoRotate;
         const testimonialElement = document.querySelector('.testimonial');
-        
-        function rotateTestimonial() {
+
+        function updateTestimonial() {
+            const testimonial = testimonials[currentTestimonial];
+            testimonialElement.style.opacity = '0';
+            setTimeout(() => {
+                testimonialElement.innerHTML =
+                    '<div class="testimonial-text">"' + testimonial.text + '"</div>' +
+                    '<div class="testimonial-author">' +
+                        '<div class="author-avatar">' + testimonial.initials + '</div>' +
+                        '<div class="author-info">' +
+                            '<h4>' + testimonial.name + '</h4>' +
+                            '<p>' + testimonial.position + '</p>' +
+                        '</div>' +
+                    '</div>';
+                testimonialElement.style.transition = 'opacity 0.4s ease';
+                testimonialElement.style.opacity = '1';
+            }, 250);
+        }
+
+        function nextTestimonial() {
             currentTestimonial = (currentTestimonial + 1) % testimonials.length;
             updateTestimonial();
         }
-        
-        function updateTestimonial() {
-            const testimonial = testimonials[currentTestimonial];
-            testimonialElement.innerHTML = `
-                <div class="testimonial-text">"${testimonial.text}"</div>
-                <div class="testimonial-author">
-                    <div class="author-avatar">${testimonial.initials}</div>
-                    <div class="author-info">
-                        <h4>${testimonial.name}</h4>
-                        <p>${testimonial.position}</p>
-                    </div>
-                </div>
-            `;
+
+        function prevTestimonial() {
+            currentTestimonial = (currentTestimonial - 1 + testimonials.length) % testimonials.length;
+            updateTestimonial();
         }
-        
-        // Auto-rotate testimonials every 5 seconds
-        setInterval(rotateTestimonial, 5000);
-        
-        // CTA button interactions
+
+        function startAutoRotate() {
+            autoRotate = setInterval(nextTestimonial, 5000);
+        }
+
+        function resetAutoRotate() {
+            clearInterval(autoRotate);
+            startAutoRotate();
+        }
+
+        document.getElementById('nextBtn').addEventListener('click', function() {
+            nextTestimonial();
+            resetAutoRotate();
+        });
+
+        document.getElementById('prevBtn').addEventListener('click', function() {
+            prevTestimonial();
+            resetAutoRotate();
+        });
+
+        startAutoRotate();
+
+        // ============ Button interactions ============
         document.querySelectorAll('.cta-button').forEach(button => {
             button.addEventListener('click', function() {
                 alert('Thank you for your interest in CodeFlow! You would be redirected to the signup page in a real implementation.');
             });
         });
-        
-        // Pricing card interactions
+
+        document.getElementById('demoBtn').addEventListener('click', function() {
+            alert('Demo video would play here in a real implementation.');
+        });
+
         document.querySelectorAll('.pricing-card button').forEach(button => {
             button.addEventListener('click', function() {
                 const planName = this.closest('.pricing-card').querySelector('.plan-name').textContent;
-                alert(`You selected the ${planName} plan. In a real implementation, you would be redirected to the checkout process.`);
+                alert('You selected the ' + planName + ' plan. In a real implementation, you would be redirected to the checkout process.');
             });
         });
     </script>
